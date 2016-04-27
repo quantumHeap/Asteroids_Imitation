@@ -1,4 +1,3 @@
-//////// Git example Push///////////
 BattleShip battleShip;
 Asteroid asteroid;
 float Hello;
@@ -12,6 +11,8 @@ void setup()
   size(750,750);
   gameObjects = new ArrayList<GameObject>();
   asteroids = new ArrayList<Asteroid>();
+  // ps = new ParticleSystem(new PVector(width/2,50));
+  
   for(int i = 0; i < AsteroidAmount; i++)
   {
       asteroids.add(new Asteroid(random(width,height),random(width,height),0));
@@ -40,6 +41,8 @@ void keyReleased()
 void draw()
 {
   background(125);
+  //  ps.addParticle();
+ // ps.run();
   for(int i = 0; i < gameObjects.size(); i++)
   {
    GameObject g = gameObjects.get(i);

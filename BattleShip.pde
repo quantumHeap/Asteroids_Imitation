@@ -1,4 +1,5 @@
 Bullet bullet;
+Ship_ParticleSystem Sps;
 int lives = 3;
 int hit = 0;
 int destroyedAsteroid = 0;
@@ -9,10 +10,11 @@ class BattleShip extends GameObject
   {
    super(x,y); 
    speed = 5.0f;
+   Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
   }
   
- int toPass = 60/5;
- int ellapsed = toPass;
+ int FireRate = 60/5;
+ int coolDown = FireRate;
 
   void Update()
   {
@@ -23,14 +25,21 @@ class BattleShip extends GameObject
    velocity.mult(speed);
    LifeSystem();
    ChechForCollisionWithAsteroid(asteroids);
+   // Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
    
-    if(keys[' '] && ellapsed > toPass)
+     if(hit >= 1)
+     {
+        Sps.addParticle();
+        Sps.run();   
+     }
+     
+    if(keys[' '] && coolDown > FireRate)
     {
       PVector bulletPos = pos.get(); //get ships position
       bulletPos.add(PVector.mult(forward,30)); // where the bullet will be fired from
       Bullet b = new Bullet(bulletPos.x, bulletPos.y, theta); // create an instance of the bullet 
       bullets.add(b); // add the created bullet to the bullets array
-      ellapsed = 0;
+      coolDown = 0;
     }
     /*
     if((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
@@ -38,7 +47,7 @@ class BattleShip extends GameObject
        bullets.remove(this);
     }
     */
-    ellapsed ++;
+    coolDown ++;
     
    if(keys[UP])
     {
@@ -92,7 +101,7 @@ class BattleShip extends GameObject
     textSize(25);
     fill(Orange);
     text("Life's = " + lives,width - width/1.1f,height - height/12);
-    
+//  text("AsteroidsDestroyed = " + destroyedAsteroid,100,100);
   }
     boolean ChechForCollisionBetweenAsteroidAndBullet(ArrayList<Asteroid> asteroids,ArrayList<Bullet> bullets)
     {
@@ -100,6 +109,7 @@ class BattleShip extends GameObject
       for(Bullet b : bullets)
       {
        PVector dist = PVector.sub(b.pos,a.pos); 
+       
        if(dist.mag() <  a.radius)
        {
          destroyedAsteroid += 1;

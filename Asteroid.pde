@@ -18,6 +18,9 @@ class Asteroid extends GameObject
        if(step == 0)
       {
          radius = Width;
+         // Aps = new Asteroid_ParticleSystem(new PVector(pos.x,pos.y));
+         //Aps.addParticle();
+         //Aps.run();   
       }
     if(step == 1)
     {  
@@ -38,7 +41,8 @@ class Asteroid extends GameObject
   } 
   void Update()
   {
-    
+     //Aps.addParticle();
+   //  ps.run();  
    //  forward.x = sin(theta);
     // forward.y = - cos(theta);
      pos.add(velocity);

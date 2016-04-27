@@ -4,12 +4,15 @@ class Bullet extends GameObject
   {
    super(x,y);
    this.theta = theta;
-   speed = 0.0f;
+
    maxSpeed = 15.0f;
+   speed = maxSpeed;
    Width = 30.0f;
    Height = 30.0f;
   }
-
+  
+  float dampSpeed = 0.2f;
+  
   void Update()
   {
    forward.x = sin(theta);
@@ -19,15 +22,9 @@ class Bullet extends GameObject
    velocity.mult(speed);
    pos.add(velocity); 
    ChechForCollisionWithAsteroid( asteroids);
-   if(speed < maxSpeed)
-   {
-    speed++; 
-   }
-       if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
-    {
-      bullets.remove(this);
-    } 
-    //Will be a power-Up
+   BulletAccelleration();
+   
+   //Will be a power-Up
     /*
     if (pos.x < 0)
     {
@@ -49,6 +46,26 @@ class Bullet extends GameObject
     }
     */
 }
+
+ void BulletAccelleration()
+  {
+     if(speed > 0)
+     {
+      speed -= dampSpeed; 
+     }
+     if(speed <= 0)
+     {
+       speed = 0;
+     }
+     if(speed == 0)
+     {
+       bullets.remove(this);
+     }
+         if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
+      {
+        bullets.remove(this);
+      } 
+  }
   void Render()
   {
     
@@ -74,8 +91,6 @@ class Bullet extends GameObject
         return true; 
       }
     }
-   
     return false;
   }
-  
 }
