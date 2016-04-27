@@ -1,6 +1,5 @@
 class GameObject
 {
-  // Position, forward vector, rotation, width,height,speed, color.
   PVector pos;
   PVector forward;
   PVector velocity;
@@ -18,7 +17,6 @@ class GameObject
     pos = new PVector(x,y); 
     forward = new PVector(0,-1);
     velocity = new PVector(0,0);
-   // speed = 5.0f;
     theta = 0.0f;
     Width = 50.0f;
     Height = 50.0f;

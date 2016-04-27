@@ -58,7 +58,7 @@ class Asteroid_Particle
     ellipse(location.x,location.y,8,8);
   }
   
-  // Is the particle still useful?
+  // Is the particle's lifespan is 0 stop creating the particle
   boolean isDead() {
     if (lifespan < 0.0) {
       return true;

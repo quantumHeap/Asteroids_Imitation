@@ -1,3 +1,9 @@
+// Need to finish  battleship Particles
+//Need to finish power-upDrops
+//Need to finish Asteroid Particles, explosion of particles outwards in all directions
+//when battleship is destroyed explosion of particles outwards 
+//need to create end game menu that loops back to the start
+// need to create spawner for asteroids that ramps up the creation of asteroids overtime (neverending rounds + lasting pwer-ups buffs == awesomeness 
 import ddf.minim.spi.*;
 import ddf.minim.signals.*;
 import ddf.minim.*;
@@ -8,7 +14,7 @@ import ddf.minim.effects.*;
 BattleShip battleShip;
 Asteroid asteroid;
 Bullet bullet1;
-//ParticleSystem ps;
+
 
 boolean[] keys = new boolean[512];
 ArrayList<GameObject> gameObjects;
@@ -34,11 +40,9 @@ void setup()
    Explosion_Medium = minim.loadFile("Explosion_Medium.mp3");
    Explosion_Small = minim.loadFile("Explosion_Small.mp3");
    LaserBeam.setGain(-30);
-// AsteroidExplosion.setGain(-10);
    AsteroidAmount = 10;
   gameObjects = new ArrayList<GameObject>();
   asteroids = new ArrayList<Asteroid>();
-  // ps = new ParticleSystem(new PVector(width/2,50));
   
   for(int i = 0; i < AsteroidAmount; i++)
   {
@@ -47,13 +51,7 @@ void setup()
   bullets = new ArrayList<Bullet>();
   gameObjects.add(new BattleShip(width/2,height/2));
   OnMainMenu = true;
-  //asteroids.add(new Asteroid(500,500,0));
- // gameObjects.add(new Asteroid(500,500));
-  //battleShip = new BattleShip(100,100);
-  //asteroid = new Asteroid(500,500);
-  
 }
-
 
 void keyPressed()
 {
@@ -69,8 +67,7 @@ void keyReleased()
 void draw()
 {
   background(125);
-  //  ps.addParticle();
- // ps.run();
+  
   if(OnMainMenu == true)
    {  
     Lvl = false;

@@ -9,7 +9,7 @@ class Bullet extends GameObject
    Width = 30.0f;
    Height = 30.0f;
   }
-;
+
   float dampSpeed = 0.2f;
   
   void Update()
@@ -22,8 +22,25 @@ class Bullet extends GameObject
    pos.add(velocity); 
    ChechForCollisionWithAsteroid( asteroids);
    BulletAccelleration();
-   
-   //Will be a power-Up
+}
+
+ void BulletAccelleration()
+  {
+     if(speed > 0)
+     {
+      speed -= dampSpeed; 
+     }
+     if(speed <= 0)
+     {
+           bullets.remove(this);
+     }
+     
+    if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
+      {
+        bullets.remove(this);
+      } 
+      
+    //Will be a power-Up
     /*
     if (pos.x < 0)
     {
@@ -44,23 +61,6 @@ class Bullet extends GameObject
       pos.y = 0;
     }
     */
-}
-
- void BulletAccelleration()
-  {
-     if(speed > 0)
-     {
-      speed -= dampSpeed; 
-     }
-     if(speed <= 0)
-     {
-           bullets.remove(this);
-     }
-     
-    if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
-      {
-        bullets.remove(this);
-      } 
   }
   void Render()
   {

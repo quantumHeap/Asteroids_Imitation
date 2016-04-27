@@ -11,16 +11,14 @@ class Asteroid extends GameObject
      super(x,y);
      step = Step;
      speed = 1.0f;
- //    theta = theta;
- //    Health = MaxHealth;
      Width = width/13;
      radius = Width;
      Aps = new Asteroid_ParticleSystem(new PVector(pos.x,pos.y));
      
-       if(step == 0)
-      {
-         radius = Width;
-      }
+    if(step == 0)
+    {
+      radius = Width;
+    }
     if(step == 1)
     {  
       radius = Width/2;
@@ -28,29 +26,17 @@ class Asteroid extends GameObject
     }
      if(step == 2)
     {
-           radius = Width/3;
-           speed *= 2.0f;
+      radius = Width/3;
+      speed *= 2.0f;
     }
+    
      float angle = random(2 * PI);
      velocity = new PVector(cos(angle) * speed, sin(angle) * speed);
- //    rotation = new PVector(cos(angle), sin(angle));
-  //   rotation = new PVector(0,-1);
-
      
   } 
   void Update()
   {
-     //Aps.addParticle();
-   //  ps.run();  
-   //  forward.x = sin(theta);
-    // forward.y = - cos(theta);
      pos.add(velocity);
-     //pos.add(forward);
-  //   radius -= 0.5f;
-    // if(radius <= 40)
-   //  {
-  //     breakUp(asteroids);
-  //   }
      
     if (pos.x < 0)
     {
@@ -70,7 +56,6 @@ class Asteroid extends GameObject
     {
       pos.y = 0;
     }
-    
   }
   
   void Render()
@@ -78,35 +63,16 @@ class Asteroid extends GameObject
     stroke(255);
     pushMatrix(); // reset the translation and rotation
     translate(pos.x, pos.y);
-    
-   // fill(0, 255, 0);
-   // stroke(0, 255, 0);
     rect(-halfW, -Width, 50, 10);
     ellipse(0,0,radius,radius);
-  //  fill(255, 0, 0);
-  //  stroke(255, 0, 0);
     rect(-halfW, -Width, 50 * ((float)Health / (float)MaxHealth), 10);
-    
- //   stroke(255);
-    rotate(theta); // We want rotate to happen first, so you make the call AFTER translate    
+    rotate(theta); //  rotate should happen first, so you make the call AFTER translate    
     popMatrix();
   }  
   void breakUp(ArrayList<Asteroid> asteroids)
   {
-    /*
-     if(radius <= 25)
-     {
-       gameObjects.remove(this);
-     }
-     else if(radius  > 25 && radius < 40)
-     {
-       
-     }
-     */ 
      if(step == 0 )
      {
-     // Aps.addParticle(pos);
-     // Aps.run();  
        for(int i = 0; i < 3; i++)
        {
  
@@ -120,8 +86,6 @@ class Asteroid extends GameObject
      }
       if(step == 1)
       {
-      // Aps.addParticle(pos);
-     //  Aps.run();   
          for(int i = 0; i < 3; i++)
          {
           float angle = random(2 * PI);
@@ -135,12 +99,9 @@ class Asteroid extends GameObject
       }
        if(step == 2)
       {
-       //Aps.addParticle(pos);
-      // Aps.run(); 
          asteroids.remove(this);
          Explosion_Small.rewind();
          Explosion_Small.play();
       }
-
   }
 }

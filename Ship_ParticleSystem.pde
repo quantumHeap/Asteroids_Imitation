@@ -51,7 +51,6 @@ class Ship_Particle
     lifespan -= 1.0;
   }
 
-  // Method to display
   void display() 
   {
     stroke(255,lifespan);
@@ -59,7 +58,7 @@ class Ship_Particle
     ellipse(location.x,location.y,8,8);
   }
   
-  // Is the particle still useful?
+// Is the particle's lifespan is 0 stop creating the particle
   boolean isDead() 
   {
     if (lifespan < 0.0) 

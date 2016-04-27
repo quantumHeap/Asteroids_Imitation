@@ -34,7 +34,6 @@ class BattleShip extends GameObject
    ChechForCollisionWithAsteroid(asteroids);
  //ChechForCollisionBetweenAsteroidAndBullet(asteroids,bullets);
    HasBeenHit();
-   // Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
    
     if(keys[' '] && coolDown >= FireRate)
     {
@@ -46,12 +45,7 @@ class BattleShip extends GameObject
       LaserBeam.rewind();
       LaserBeam.play();
     }
-    /*
-    if((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
-    {
-       bullets.remove(this);
-    }
-    */
+
     coolDown ++;
     
    if(keys[UP])
@@ -66,21 +60,18 @@ class BattleShip extends GameObject
     {
       theta += 0.1f;
     }      
-    
     if (pos.x < 0)
     {
       pos.x = width;
     }
-      if (pos.x > width)
+    if (pos.x > width)
     {
       pos.x = 0;
     }
-    
     if (pos.y < 0)
     {
       pos.y = height;
     }
-    
     if (pos.y > height)
     {
       pos.y = 0;
@@ -112,7 +103,7 @@ class BattleShip extends GameObject
     stroke(255);
     pushMatrix(); // reset the translation and rotation
     translate(pos.x, pos.y);
-    rotate(theta); // We want rotate to happen first, so you make the call AFTER translate
+    rotate(theta); //  rotate should happen first, so  make the call AFTER translate
     triangle(0, -halfW, halfW, halfW, - halfW, halfW);
     popMatrix();
   }
@@ -123,6 +114,7 @@ class BattleShip extends GameObject
     text("Life's = " + lives,width - width/1.1f,height - height/12);
   }
   /*
+  // I could just call to see if the bool check of the collision with the asteroid in bullet == true but how?  
     //////////////// Score system and Power-up drops are dependent on this check, Need to  fix it ///////////////////////////// 
     boolean ChechForCollisionBetweenAsteroidAndBullet(ArrayList<Asteroid> asteroids,ArrayList<Bullet> bullets)
     {
@@ -157,9 +149,7 @@ class BattleShip extends GameObject
       
       if(dist.mag() < a.radius)
       {
-       // a.radius = 20.0f;
         a.breakUp(asteroids);
-      //  hit+=1;          //Hit damage/amount should vary depending on how big/what step the asteroid is on
       if(a.step == 0)
       {
        hit +=3; 
@@ -172,17 +162,17 @@ class BattleShip extends GameObject
       {
        hit +=1; 
       }
-        if(hit >= 3)
-        {
+      if(hit >= 3)
+      {
           Explode = true;
           lives-=1;
           pos.x = OriginalPosX;
           pos.y = OriginalPosY;
           hit = 0; 
-        }
-        return true; 
       }
-    }
-    return false;
+        return true; 
+     }
+   }
+     return false;
   }
 }
