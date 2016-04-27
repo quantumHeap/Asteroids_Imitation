@@ -1,3 +1,4 @@
+Asteroid_ParticleSystem Aps;
 class Asteroid extends GameObject
 {
   int MaxHealth = 100;
@@ -14,7 +15,8 @@ class Asteroid extends GameObject
  //    Health = MaxHealth;
      Width = width/13;
      radius = Width;
-          
+     Aps = new Asteroid_ParticleSystem(new PVector(pos.x,pos.y));
+     
        if(step == 0)
       {
          radius = Width;

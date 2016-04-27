@@ -30,7 +30,6 @@ void setup()
    Explosion_Small = minim.loadFile("Explosion_Small.mp3");
    LaserBeam.setGain(-30);
 // AsteroidExplosion.setGain(-10);
-
   gameObjects = new ArrayList<GameObject>();
   asteroids = new ArrayList<Asteroid>();
   // ps = new ParticleSystem(new PVector(width/2,50));

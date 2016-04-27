@@ -9,9 +9,9 @@ class Asteroid_ParticleSystem
     Asteroid_particles = new ArrayList<Asteroid_Particle>();
   }
 
-  void addParticle() 
+  void addParticle(PVector Position) 
   {
-    Asteroid_particles.add(new Asteroid_Particle(origin));
+    Asteroid_particles.add(new Asteroid_Particle(Position));
   }
 
   void run() {

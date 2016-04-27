@@ -9,9 +9,10 @@ class Ship_ParticleSystem
     Ship_particles = new ArrayList<Ship_Particle>();
   }
 
-  void addParticle() 
+  void addParticle(PVector Position) 
   {
-    Ship_particles.add(new Ship_Particle(origin));
+    //A timer here for how long the particle system lasts? 
+    Ship_particles.add(new Ship_Particle(Position));
   }
 
   void run() {
@@ -36,7 +37,7 @@ class Ship_Particle
     acceleration = new PVector(0,0.05);
     velocity = new PVector(random(-1,1),random(-2,0));
     location = l.get();
-    lifespan = 255.0;
+    lifespan = 50.0;
   }
   void run()
   {

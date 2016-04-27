@@ -4,6 +4,7 @@ int lives = 3;
 int hit = 0;
 int destroyedAsteroid = 0;
 color Orange = color(198,152,58); 
+
 class BattleShip extends GameObject
 {
   BattleShip(float x, float y)
@@ -29,7 +30,7 @@ class BattleShip extends GameObject
    
      if(hit >= 1)
      {
-        Sps.addParticle();
+        Sps.addParticle(pos);
         Sps.run();   
      }
      
@@ -116,7 +117,7 @@ class BattleShip extends GameObject
        {
          destroyedAsteroid += 1; //Counter for the power-Ups
          
-         if(destroyedAsteroid >= 5);
+         if(destroyedAsteroid == 5);
          {
            gameObjects.add(new Increase_Lives_PowerUp(random(width,height),random(width,height)));
          }
