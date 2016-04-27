@@ -12,14 +12,15 @@ import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
 //BattleShip battleShip;
-Asteroid asteroid;
-Bullet bullet1;
-
+//Asteroid asteroid;
+//Bullet bullet1;
 
 boolean[] keys = new boolean[512];
 ArrayList<BattleShip> battleShips;
 ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
+//ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
+//int increase_LivesDropAmount;
 int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
@@ -48,7 +49,9 @@ void setup()
   battleShips = new ArrayList<BattleShip>();
   asteroids = new ArrayList<Asteroid>();
   CreateAsteroidTime = 60 * 5;
-  createdLifeDrop = false;
+  
+//  createdLifeDrop = false;
+
   for(int i = 0; i < BattleShipAmount; i++)
   {
     battleShips.add(new BattleShip(width/2,height/2));
@@ -75,7 +78,7 @@ void keyReleased()
 void draw()
 {
   background(125);
-  
+
   if(OnMainMenu == true)
    {  
     Lvl = false;
@@ -125,7 +128,6 @@ void draw()
   if(Lvl == true)
    {
     text("Score = " + Score,100,100);
-    
     for(int i = 0; i < battleShips.size(); i++)
     {
       BattleShip ship = battleShips.get(i);
@@ -138,7 +140,17 @@ void draw()
       a.Render();
       a.Update(); 
     }
-    
+    /*
+    if(increase_LivesDropAmount > 0)
+    {
+        for(int i = 0; i <= increase_LivesDrops.size(); i++)
+        {
+          Increase_Lives_PowerUp LifesPlus = increase_LivesDrops.get(i);
+          LifesPlus.Update();
+          LifesPlus.Render();
+        }
+    }
+   */
     for(int i = bullets.size() -1 ; i >= 0  ; i --)
     {
       Bullet b = bullets.get(i);
@@ -150,10 +162,13 @@ void draw()
        Score +=1;
        }
     }
+    
     if(Score >= 5 && createdLifeDrop == false)
     {
-      //gameObjects.add(new Increase_Lives_PowerUp(random(width,height),random(width,height)));
-      createdLifeDrop = true;
+     // increase_LivesDrops.add(new Increase_Lives_PowerUp(random(width,height),random(width,height)));
+  //    createdLifeDrop = true;
+  //    increase_LivesDropAmount +=1;
+     
     }
     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {
