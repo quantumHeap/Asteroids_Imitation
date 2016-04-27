@@ -7,15 +7,17 @@ import ddf.minim.effects.*;
 
 BattleShip battleShip;
 Asteroid asteroid;
+Bullet bullet1;
 //ParticleSystem ps;
 
 boolean[] keys = new boolean[512];
 ArrayList<GameObject> gameObjects;
 ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
-int AsteroidAmount = 10;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
+int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
 boolean Lvl;
+int Score;
 Minim minim; 
 AudioPlayer LaserBeam;
 AudioPlayer Explosion_Large;
@@ -33,7 +35,7 @@ void setup()
    Explosion_Small = minim.loadFile("Explosion_Small.mp3");
    LaserBeam.setGain(-30);
 // AsteroidExplosion.setGain(-10);
-
+   AsteroidAmount = 10;
   gameObjects = new ArrayList<GameObject>();
   asteroids = new ArrayList<Asteroid>();
   // ps = new ParticleSystem(new PVector(width/2,50));
@@ -94,14 +96,14 @@ void draw()
     text("Bullet-Wrap",width/2,height/2 + gap * 8);
     text("Arrow keys to Move, space Key to fire",width/2,height/2 + gap * 9);
     text("Click anywhere to begin",width/2,height/2 + gap * 10);
-   
+   /*
       for(int i = 0; i < asteroids.size(); i ++)
     {
       Asteroid a = asteroids.get(i);
       a.Render();
       a.Update(); 
     }
-    
+  */  
    if(((mouseX >= 0)
    &&(mouseX <= width)
    &&(mouseY >= 0)
@@ -115,6 +117,8 @@ void draw()
   
   if(Lvl == true)
    {
+     text("AsteroidsDestroyed = " + Score,100,100);
+
     for(int i = 0; i < gameObjects.size(); i++)
     {
      GameObject g = gameObjects.get(i);
@@ -132,6 +136,11 @@ void draw()
       Bullet b = bullets.get(i);
       b.Update();
       b.Render(); 
+      
+       if(b.ChechForCollisionWithAsteroid(asteroids) == true)
+       {
+       Score +=1;
+       }
     }
     if(asteroids.size() <= 0)
     {

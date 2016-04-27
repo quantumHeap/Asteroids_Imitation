@@ -44,22 +44,26 @@ class Ship_Particle
      update();
     display();
   }
-  void update() {
+  void update() 
+  {
     velocity.add(acceleration);
     location.add(velocity);
     lifespan -= 1.0;
   }
 
   // Method to display
-  void display() {
+  void display() 
+  {
     stroke(255,lifespan);
     fill(255,lifespan);
     ellipse(location.x,location.y,8,8);
   }
   
   // Is the particle still useful?
-  boolean isDead() {
-    if (lifespan < 0.0) {
+  boolean isDead() 
+  {
+    if (lifespan < 0.0) 
+    {
       return true;
     } else {
       return false;

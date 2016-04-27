@@ -14,8 +14,10 @@ class Asteroid_ParticleSystem
     Asteroid_particles.add(new Asteroid_Particle(Position));
   }
 
-  void run() {
-    for (int i = Asteroid_particles.size()-1; i >= 0; i--) {
+  void run() 
+  {
+    for (int i = Asteroid_particles.size()-1; i >= 0; i--) 
+    {
       Asteroid_Particle p = Asteroid_particles.get(i);
       p.run();
       if (p.isDead()) {

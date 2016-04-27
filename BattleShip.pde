@@ -32,6 +32,7 @@ class BattleShip extends GameObject
    
    LifeSystem();
    ChechForCollisionWithAsteroid(asteroids);
+ //ChechForCollisionBetweenAsteroidAndBullet(asteroids,bullets);
    HasBeenHit();
    // Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
    
@@ -120,9 +121,8 @@ class BattleShip extends GameObject
     textSize(25);
     fill(Orange);
     text("Life's = " + lives,width - width/1.1f,height - height/12);
-    text("AsteroidsDestroyed = " + destroyedAsteroid,100,100);
   }
-  
+  /*
     //////////////// Score system and Power-up drops are dependent on this check, Need to  fix it ///////////////////////////// 
     boolean ChechForCollisionBetweenAsteroidAndBullet(ArrayList<Asteroid> asteroids,ArrayList<Bullet> bullets)
     {
@@ -148,6 +148,7 @@ class BattleShip extends GameObject
       }
       return false;
     }
+    */
     boolean ChechForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)
   {
     for( Asteroid a : asteroids)

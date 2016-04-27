@@ -2,7 +2,7 @@ class Increase_Lives_PowerUp extends GameObject
 {
   float Timer;
   
-  Increase_Lives_PowerUp(float x, float y)
+  Increase_Lives_PowerUp(float x, float y, PVector Position)
   {
     super(x,y);
     Width = 30.0f;

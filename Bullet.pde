@@ -9,7 +9,7 @@ class Bullet extends GameObject
    Width = 30.0f;
    Height = 30.0f;
   }
-  //int destroyedAsteroid;
+;
   float dampSpeed = 0.2f;
   
   void Update()
@@ -54,13 +54,10 @@ class Bullet extends GameObject
      }
      if(speed <= 0)
      {
-       speed = 0;
+           bullets.remove(this);
      }
-     if(speed == 0)
-     {
-       bullets.remove(this);
-     }
-         if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
+     
+    if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
       {
         bullets.remove(this);
       } 
@@ -75,7 +72,7 @@ class Bullet extends GameObject
      line(0,halfW,0, - halfW);
      popMatrix();
   }
-  boolean ChechForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)
+ public boolean ChechForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)
   {
     for( Asteroid a : asteroids)
     {
@@ -83,7 +80,6 @@ class Bullet extends GameObject
       
       if(dist.mag() < a.radius)
       {
-       // a.radius = 20.0f;
         a.breakUp(asteroids);
         bullets.remove(this);
         return true; 

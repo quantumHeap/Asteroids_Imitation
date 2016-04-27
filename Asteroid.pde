@@ -120,6 +120,8 @@ class Asteroid extends GameObject
      }
       if(step == 1)
       {
+      // Aps.addParticle(pos);
+     //  Aps.run();   
          for(int i = 0; i < 3; i++)
          {
           float angle = random(2 * PI);
