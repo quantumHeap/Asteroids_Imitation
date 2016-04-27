@@ -29,26 +29,18 @@ class BattleShip extends GameObject
    velocity.x = forward.x;
    velocity.y = forward.y;
    velocity.mult(speed);
-   
-   LifeSystem();
+   InputMovement();
    ChechForCollisionWithAsteroid(asteroids);
- //ChechForCollisionBetweenAsteroidAndBullet(asteroids,bullets);
    HasBeenHit();
-   
-    if(keys[' '] && coolDown >= FireRate)
-    {
-      PVector bulletPos = pos.get(); //get ships position
-      bulletPos.add(PVector.mult(forward,30)); // where the bullet will be fired from
-      Bullet b = new Bullet(bulletPos.x, bulletPos.y, theta); // create an instance of the bullet 
-      bullets.add(b); // add the created bullet to the bullets array
-      coolDown = 0;
-      LaserBeam.rewind();
-      LaserBeam.play();
-    }
-
+   LifeSystem();
+ //ChechForCollisionBetweenAsteroidAndBullet(asteroids,bullets);
     coolDown ++;
     
-   if(keys[UP])
+  } 
+  
+  void InputMovement()
+  {
+    if(keys[UP])
     {
       pos.add(velocity); 
     }
@@ -76,7 +68,17 @@ class BattleShip extends GameObject
     {
       pos.y = 0;
     }
-  } 
+      if(keys[' '] && coolDown >= FireRate)
+    {
+      PVector bulletPos = pos.get(); //get ships position
+      bulletPos.add(PVector.mult(forward,30)); // where the bullet will be fired from
+      Bullet b = new Bullet(bulletPos.x, bulletPos.y, theta); // create an instance of the bullet 
+      bullets.add(b); // add the created bullet to the bullets array
+      coolDown = 0;
+      LaserBeam.rewind();
+      LaserBeam.play();
+    }
+  }
    void HasBeenHit()
   {
       if(hit == 1)
@@ -175,4 +177,39 @@ class BattleShip extends GameObject
    }
      return false;
   }
+  /*
+   boolean ChechForCollisionWithLifeBuff(Increase_Lives_PowerUp)
+  {
+  
+      PVector dist = PVector.sub(pos, Increase_Lives_PowerUp.pos);
+      
+      if(dist.mag() < a.radius)
+      {
+        a.breakUp(asteroids);
+      if(a.step == 0)
+      {
+       hit +=3; 
+      }
+      if(a.step == 1)
+      {
+       hit +=2; 
+      }
+      if(a.step == 2)
+      {
+       hit +=1; 
+      }
+      if(hit >= 3)
+      {
+          Explode = true;
+          lives-=1;
+          pos.x = OriginalPosX;
+          pos.y = OriginalPosY;
+          hit = 0; 
+      }
+        return true; 
+     }
+   }
+     return false;
+  }
+  */
 }

@@ -11,21 +11,23 @@ import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
-BattleShip battleShip;
+//BattleShip battleShip;
 Asteroid asteroid;
 Bullet bullet1;
 
 
 boolean[] keys = new boolean[512];
-ArrayList<GameObject> gameObjects;
+ArrayList<BattleShip> battleShips;
 ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
+int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
 boolean Lvl;
 int Score;
 int CreateAsteroidTime;
 int AsteroidCreationTimeCoolDown;
+boolean createdLifeDrop;
 Minim minim; 
 AudioPlayer LaserBeam;
 AudioPlayer Explosion_Large;
@@ -41,16 +43,21 @@ void setup()
    Explosion_Medium = minim.loadFile("Explosion_Medium.mp3");
    Explosion_Small = minim.loadFile("Explosion_Small.mp3");
    LaserBeam.setGain(-30);
+   BattleShipAmount = 1;
    AsteroidAmount = 10;
-  gameObjects = new ArrayList<GameObject>();
+  battleShips = new ArrayList<BattleShip>();
   asteroids = new ArrayList<Asteroid>();
   CreateAsteroidTime = 60 * 5;
+  createdLifeDrop = false;
+  for(int i = 0; i < BattleShipAmount; i++)
+  {
+    battleShips.add(new BattleShip(width/2,height/2));
+  }
   for(int i = 0; i < AsteroidAmount; i++)
   {
       asteroids.add(new Asteroid(random(width,height),random(width,height),0));
   }
   bullets = new ArrayList<Bullet>();
-  gameObjects.add(new BattleShip(width/2,height/2));
   OnMainMenu = true;
 }
 
@@ -94,6 +101,7 @@ void draw()
     text("Bullet-Wrap",width/2,height/2 + gap * 8);
     text("Arrow keys to Move, space Key to fire",width/2,height/2 + gap * 9);
     text("Click anywhere to begin",width/2,height/2 + gap * 10);
+    //I wanted to add movement on the main menu with this as the player read through the instructions
    /*
       for(int i = 0; i < asteroids.size(); i ++)
     {
@@ -116,13 +124,13 @@ void draw()
   
   if(Lvl == true)
    {
-     text("AsteroidsDestroyed = " + Score,100,100);
-
-    for(int i = 0; i < gameObjects.size(); i++)
+    text("Score = " + Score,100,100);
+    
+    for(int i = 0; i < battleShips.size(); i++)
     {
-     GameObject g = gameObjects.get(i);
-     g.Render();
-     g.Update();  
+      BattleShip ship = battleShips.get(i);
+      ship.Render();
+      ship.Update();
     }
     for(int i = 0; i < asteroids.size(); i ++)
     {
@@ -130,7 +138,8 @@ void draw()
       a.Render();
       a.Update(); 
     }
-     for (int i = bullets.size() -1 ; i >= 0  ; i --)
+    
+    for(int i = bullets.size() -1 ; i >= 0  ; i --)
     {
       Bullet b = bullets.get(i);
       b.Update();
@@ -141,18 +150,16 @@ void draw()
        Score +=1;
        }
     }
-     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
+    if(Score >= 5 && createdLifeDrop == false)
+    {
+      //gameObjects.add(new Increase_Lives_PowerUp(random(width,height),random(width,height)));
+      createdLifeDrop = true;
+    }
+    if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {
        asteroids.add(new Asteroid(random(width,height),random(width,height),0));
        AsteroidCreationTimeCoolDown = 0;
     }
     AsteroidCreationTimeCoolDown ++;
-    if(asteroids.size() <= 0)
-    {
-       Lvl = false;
-       OnMainMenu = true;
-          
-    }
-    
   }  
 }
