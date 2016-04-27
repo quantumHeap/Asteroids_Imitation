@@ -24,6 +24,8 @@ int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when
 boolean OnMainMenu;
 boolean Lvl;
 int Score;
+int CreateAsteroidTime;
+int AsteroidCreationTimeCoolDown;
 Minim minim; 
 AudioPlayer LaserBeam;
 AudioPlayer Explosion_Large;
@@ -33,7 +35,6 @@ AudioPlayer Explosion_Small;
 void setup()
 {
   size(750,750);
-  
    minim = new Minim(this);
    LaserBeam = minim.loadFile("LaserFired.mp3");
    Explosion_Large = minim.loadFile("Explosion_Large.mp3");
@@ -43,7 +44,7 @@ void setup()
    AsteroidAmount = 10;
   gameObjects = new ArrayList<GameObject>();
   asteroids = new ArrayList<Asteroid>();
-  
+  CreateAsteroidTime = 60 * 5;
   for(int i = 0; i < AsteroidAmount; i++)
   {
       asteroids.add(new Asteroid(random(width,height),random(width,height),0));
@@ -109,6 +110,7 @@ void draw()
    {
      OnMainMenu = false;
      Lvl = true;
+     AsteroidCreationTimeCoolDown = 0;
    }
   }
   
@@ -139,11 +141,18 @@ void draw()
        Score +=1;
        }
     }
+     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
+    {
+       asteroids.add(new Asteroid(random(width,height),random(width,height),0));
+       AsteroidCreationTimeCoolDown = 0;
+    }
+    AsteroidCreationTimeCoolDown ++;
     if(asteroids.size() <= 0)
     {
        Lvl = false;
        OnMainMenu = true;
           
     }
+    
   }  
 }

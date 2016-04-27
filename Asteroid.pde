@@ -1,11 +1,9 @@
 Asteroid_ParticleSystem Aps;
 class Asteroid extends GameObject
 {
-  int MaxHealth = 100;
-  int Health;
   float radius;
   int step;
-  
+  boolean hit;
    Asteroid(float x, float y, int Step)
   {
      super(x,y);
@@ -18,6 +16,7 @@ class Asteroid extends GameObject
     if(step == 0)
     {
       radius = Width;
+     
     }
     if(step == 1)
     {  
@@ -57,22 +56,27 @@ class Asteroid extends GameObject
       pos.y = 0;
     }
   }
-  
   void Render()
   {
     stroke(255);
     pushMatrix(); // reset the translation and rotation
     translate(pos.x, pos.y);
-    rect(-halfW, -Width, 50, 10);
+  //  rect(-halfW, -Width, 50, 10);
     ellipse(0,0,radius,radius);
-    rect(-halfW, -Width, 50 * ((float)Health / (float)MaxHealth), 10);
+  //  rect(-halfW, -Width, 50 * ((float)Health / (float)MaxHealth), 10);
     rotate(theta); //  rotate should happen first, so you make the call AFTER translate    
     popMatrix();
   }  
   void breakUp(ArrayList<Asteroid> asteroids)
   {
+     hit = true;
+     float lifeSpan = 20.0f;
+     Aps.addParticle(pos,lifeSpan);
+     Aps.run();  
      if(step == 0 )
      {
+
+         
        for(int i = 0; i < 3; i++)
        {
  
@@ -91,7 +95,6 @@ class Asteroid extends GameObject
           float angle = random(2 * PI);
           PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
           asteroids.add(new Asteroid(pos.x ,pos.y,2));
-         
          }
          asteroids.remove(this);
          Explosion_Medium.rewind();
