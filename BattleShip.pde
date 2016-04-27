@@ -4,19 +4,24 @@ int lives = 3;
 int hit = 0;
 int destroyedAsteroid = 0;
 color Orange = color(198,152,58); 
+float OriginalPosX;
+float OriginalPosY;
 
 class BattleShip extends GameObject
 {
   BattleShip(float x, float y)
   {
    super(x,y); 
+   OriginalPosX = pos.x;
+   OriginalPosY = pos.y;
    speed = 5.0f;
    Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
   }
   
  int FireRate = 60/5;
  int coolDown = FireRate;
-
+ boolean Explode;
+ 
   void Update()
   {
    forward.x = sin(theta);
@@ -26,14 +31,9 @@ class BattleShip extends GameObject
    velocity.mult(speed);
    LifeSystem();
    ChechForCollisionWithAsteroid(asteroids);
+   HasBeenHit();
    // Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
    
-     if(hit >= 1)
-     {
-        Sps.addParticle(pos);
-        Sps.run();   
-     }
-     
     if(keys[' '] && coolDown > FireRate)
     {
       PVector bulletPos = pos.get(); //get ships position
@@ -84,6 +84,27 @@ class BattleShip extends GameObject
       pos.y = 0;
     }
   } 
+   void HasBeenHit()
+  {
+      if(hit == 1)
+     {
+       float lifespan = 50;
+        Sps.addParticle(pos,lifespan);
+        Sps.run();   
+     }
+     if(hit == 2)
+     {
+       float lifespan = 100;
+        Sps.addParticle(pos,lifespan);
+        Sps.run();   
+     }
+       if(hit == 3)
+     {
+       float lifespan = 200;
+        Sps.addParticle(pos,lifespan);
+        Sps.run();  
+     }
+  }
   void Render()
   {
     stroke(255);
@@ -151,9 +172,10 @@ class BattleShip extends GameObject
       }
         if(hit >= 3)
         {
+          Explode = true;
           lives-=1;
-          pos.x = width/2;
-          pos.y = height/2;
+          pos.x = OriginalPosX;
+          pos.y = OriginalPosY;
           hit = 0; 
         }
         return true; 

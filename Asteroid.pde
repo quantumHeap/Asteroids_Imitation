@@ -20,9 +20,6 @@ class Asteroid extends GameObject
        if(step == 0)
       {
          radius = Width;
-         // Aps = new Asteroid_ParticleSystem(new PVector(pos.x,pos.y));
-         //Aps.addParticle();
-         //Aps.run();   
       }
     if(step == 1)
     {  
@@ -108,8 +105,11 @@ class Asteroid extends GameObject
      */ 
      if(step == 0 )
      {
+     // Aps.addParticle(pos);
+     // Aps.run();  
        for(int i = 0; i < 3; i++)
        {
+ 
         float angle = random(2 * PI);
         PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
         asteroids.add(new Asteroid(pos.x ,pos.y,1));
@@ -125,13 +125,16 @@ class Asteroid extends GameObject
           float angle = random(2 * PI);
           PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
           asteroids.add(new Asteroid(pos.x ,pos.y,2));
-          Explosion_Medium.rewind();
-          Explosion_Medium.play();
+         
          }
          asteroids.remove(this);
+         Explosion_Medium.rewind();
+         Explosion_Medium.play();
       }
        if(step == 2)
       {
+       //Aps.addParticle(pos);
+      // Aps.run(); 
          asteroids.remove(this);
          Explosion_Small.rewind();
          Explosion_Small.play();
