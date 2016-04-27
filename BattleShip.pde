@@ -40,6 +40,8 @@ class BattleShip extends GameObject
       Bullet b = new Bullet(bulletPos.x, bulletPos.y, theta); // create an instance of the bullet 
       bullets.add(b); // add the created bullet to the bullets array
       coolDown = 0;
+      LaserBeam.rewind();
+      LaserBeam.play();
     }
     /*
     if((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
@@ -112,7 +114,7 @@ class BattleShip extends GameObject
        
        if(dist.mag() <  a.radius)
        {
-         destroyedAsteroid += 1;
+         destroyedAsteroid += 1; //Counter for the power-Ups
          
          if(destroyedAsteroid >= 5);
          {
@@ -133,8 +135,20 @@ class BattleShip extends GameObject
       {
        // a.radius = 20.0f;
         a.breakUp(asteroids);
-        hit+=1;
-        if(hit == 3)
+      //  hit+=1;          //Hit damage/amount should vary depending on how big/what step the asteroid is on
+      if(a.step == 0)
+      {
+       hit +=3; 
+      }
+      if(a.step == 1)
+      {
+       hit +=2; 
+      }
+      if(a.step == 2)
+      {
+       hit +=1; 
+      }
+        if(hit >= 3)
         {
           lives-=1;
           pos.x = width/2;

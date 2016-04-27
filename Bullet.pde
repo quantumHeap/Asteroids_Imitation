@@ -4,13 +4,12 @@ class Bullet extends GameObject
   {
    super(x,y);
    this.theta = theta;
-
    maxSpeed = 15.0f;
    speed = maxSpeed;
    Width = 30.0f;
    Height = 30.0f;
   }
-  
+  //int destroyedAsteroid;
   float dampSpeed = 0.2f;
   
   void Update()
@@ -68,13 +67,12 @@ class Bullet extends GameObject
   }
   void Render()
   {
-    
      stroke(255);
      fill(255);
      pushMatrix();
      translate(pos.x,pos.y);
      rotate(theta);;
-    line(0,halfW,0, - halfW);
+     line(0,halfW,0, - halfW);
      popMatrix();
   }
   boolean ChechForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)

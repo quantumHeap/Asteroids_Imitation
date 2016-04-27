@@ -83,7 +83,7 @@ class Asteroid extends GameObject
    // fill(0, 255, 0);
    // stroke(0, 255, 0);
     rect(-halfW, -Width, 50, 10);
-      ellipse(0,0,radius,radius);
+    ellipse(0,0,radius,radius);
   //  fill(255, 0, 0);
   //  stroke(255, 0, 0);
     rect(-halfW, -Width, 50 * ((float)Health / (float)MaxHealth), 10);
@@ -113,6 +113,8 @@ class Asteroid extends GameObject
         asteroids.add(new Asteroid(pos.x ,pos.y,1));
        }
        asteroids.remove(this);
+       Explosion_Large.rewind();
+       Explosion_Large.play();
      }
       if(step == 1)
       {
@@ -121,12 +123,16 @@ class Asteroid extends GameObject
           float angle = random(2 * PI);
           PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
           asteroids.add(new Asteroid(pos.x ,pos.y,2));
+          Explosion_Medium.rewind();
+          Explosion_Medium.play();
          }
          asteroids.remove(this);
       }
        if(step == 2)
       {
          asteroids.remove(this);
+         Explosion_Small.rewind();
+         Explosion_Small.play();
       }
 
   }
