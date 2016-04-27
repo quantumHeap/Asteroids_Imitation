@@ -1,11 +1,5 @@
 Bullet bullet;
 Ship_ParticleSystem Sps;
-int lives = 3;
-int hit = 0;
-int destroyedAsteroid = 0;
-color Orange = color(198,152,58); 
-float OriginalPosX;
-float OriginalPosY;
 
 class BattleShip extends GameObject
 {
@@ -18,6 +12,12 @@ class BattleShip extends GameObject
    Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
   }
   
+ int lives = 3;
+ int hit = 0;
+ int destroyedAsteroid = 0;
+ color Orange = color(198,152,58); 
+ float OriginalPosX;
+ float OriginalPosY; 
  int FireRate = 60/5;
  int coolDown = FireRate;
  boolean Explode;
@@ -29,12 +29,13 @@ class BattleShip extends GameObject
    velocity.x = forward.x;
    velocity.y = forward.y;
    velocity.mult(speed);
+   
    LifeSystem();
    ChechForCollisionWithAsteroid(asteroids);
    HasBeenHit();
    // Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
    
-    if(keys[' '] && coolDown > FireRate)
+    if(keys[' '] && coolDown >= FireRate)
     {
       PVector bulletPos = pos.get(); //get ships position
       bulletPos.add(PVector.mult(forward,30)); // where the bullet will be fired from
@@ -112,12 +113,6 @@ class BattleShip extends GameObject
     translate(pos.x, pos.y);
     rotate(theta); // We want rotate to happen first, so you make the call AFTER translate
     triangle(0, -halfW, halfW, halfW, - halfW, halfW);
-/*    
-    line(- halfW, halfW, 0, - halfW);
-    line(0, - halfW, halfW, halfW);
-    line(halfW, halfW, 0, 0);
-    line(- halfW, halfW, 0, 0);
-    */
     popMatrix();
   }
     void LifeSystem()
@@ -125,13 +120,19 @@ class BattleShip extends GameObject
     textSize(25);
     fill(Orange);
     text("Life's = " + lives,width - width/1.1f,height - height/12);
-//  text("AsteroidsDestroyed = " + destroyedAsteroid,100,100);
+    text("AsteroidsDestroyed = " + destroyedAsteroid,100,100);
   }
+  
+    //////////////// Score system and Power-up drops are dependent on this check, Need to  fix it ///////////////////////////// 
     boolean ChechForCollisionBetweenAsteroidAndBullet(ArrayList<Asteroid> asteroids,ArrayList<Bullet> bullets)
     {
       for(Asteroid a : asteroids)
       for(Bullet b : bullets)
       {
+       //for(int i = 0; i < a.size(); i++)
+    //     {
+    //      for(int j = 0; j < b.length(); j++)
+    //       {
        PVector dist = PVector.sub(b.pos,a.pos); 
        
        if(dist.mag() <  a.radius)
