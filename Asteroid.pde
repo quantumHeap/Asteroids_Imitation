@@ -7,6 +7,7 @@ class Asteroid extends GameObject
    Asteroid(float x, float y, int Step)
   {
      super(x,y);
+     
      step = Step;
      speed = 1.0f;
      Width = width/13;
@@ -36,7 +37,7 @@ class Asteroid extends GameObject
   void Update()
   {
      pos.add(velocity);
-     
+     Aps.run();
     if (pos.x < 0)
     {
       pos.x = width;
@@ -59,6 +60,7 @@ class Asteroid extends GameObject
   void Render()
   {
     stroke(255);
+    fill(1);
     pushMatrix(); // reset the translation and rotation
     translate(pos.x, pos.y);
   //  rect(-halfW, -Width, 50, 10);
@@ -70,9 +72,8 @@ class Asteroid extends GameObject
   void breakUp(ArrayList<Asteroid> asteroids)
   {
      hit = true;
-     float lifeSpan = 20.0f;
-     Aps.addParticle(pos,lifeSpan);
-     Aps.run();  
+   
+  
      if(step == 0 )
      {
 
@@ -84,7 +85,10 @@ class Asteroid extends GameObject
         PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
         asteroids.add(new Asteroid(pos.x ,pos.y,1));
        }
+    //   float lifeSpan = 20.0f;
+    //   Aps.addParticle(pos,lifeSpan);
        asteroids.remove(this);
+       Score += 100;
        Explosion_Large.rewind();
        Explosion_Large.play();
      }
@@ -96,15 +100,27 @@ class Asteroid extends GameObject
           PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
           asteroids.add(new Asteroid(pos.x ,pos.y,2));
          }
+     //    float lifeSpan = 20.0f;
+     //    Aps.addParticle(pos,lifeSpan);
          asteroids.remove(this);
+         Score+= 200;
+
          Explosion_Medium.rewind();
          Explosion_Medium.play();
       }
        if(step == 2)
       {
+     //    float lifeSpan = 20.0f;
+   //      Aps.addParticle(pos,lifeSpan);
          asteroids.remove(this);
+         Score+= 400;
          Explosion_Small.rewind();
          Explosion_Small.play();
+      }
+      
+      if(Score >= 1000)
+      {
+           
       }
   }
 }

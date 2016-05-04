@@ -25,6 +25,7 @@ class BattleShip extends GameObject
   void Update()
   {
    forward.x = sin(theta);
+
    forward.y = - cos(theta);
    velocity.x = forward.x;
    velocity.y = forward.y;
@@ -33,9 +34,15 @@ class BattleShip extends GameObject
    ChechForCollisionWithAsteroid(asteroids);
    HasBeenHit();
    LifeSystem();
- //ChechForCollisionBetweenAsteroidAndBullet(asteroids,bullets);
-    coolDown ++;
+   coolDown ++;
     
+  if(lives == 0)
+  {
+    Lvl = false;
+    OnMainMenu = true;
+    lives +=3;
+    Score = 0;
+  }
   } 
   
   void InputMovement()
@@ -103,6 +110,7 @@ class BattleShip extends GameObject
   void Render()
   {
     stroke(255);
+    fill(Orange);
     pushMatrix(); // reset the translation and rotation
     translate(pos.x, pos.y);
     rotate(theta); //  rotate should happen first, so  make the call AFTER translate

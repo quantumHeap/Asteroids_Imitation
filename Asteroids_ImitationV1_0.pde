@@ -19,8 +19,8 @@ boolean[] keys = new boolean[512];
 ArrayList<BattleShip> battleShips;
 ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
-//ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
-//int increase_LivesDropAmount;
+ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
+int increase_LivesDropAmount;
 int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
@@ -29,6 +29,7 @@ int Score;
 int CreateAsteroidTime;
 int AsteroidCreationTimeCoolDown;
 boolean createdLifeDrop;
+color Orange = color(198,152,58); 
 Minim minim; 
 AudioPlayer LaserBeam;
 AudioPlayer Explosion_Large;
@@ -49,7 +50,7 @@ void setup()
   battleShips = new ArrayList<BattleShip>();
   asteroids = new ArrayList<Asteroid>();
   CreateAsteroidTime = 60 * 5;
-  
+  createdLifeDrop = false;
 //  createdLifeDrop = false;
 
   for(int i = 0; i < BattleShipAmount; i++)
@@ -81,7 +82,7 @@ void draw()
 
   if(OnMainMenu == true)
    {  
-    Lvl = false;
+   // Lvl = false;
     float AsteroidsHeadingSize = 75.0f;
     float TitleSize = 50.0f;
     float gap = 30.0f;
@@ -104,30 +105,21 @@ void draw()
     text("Bullet-Wrap",width/2,height/2 + gap * 8);
     text("Arrow keys to Move, space Key to fire",width/2,height/2 + gap * 9);
     text("Click anywhere to begin",width/2,height/2 + gap * 10);
-    //I wanted to add movement on the main menu with this as the player read through the instructions
-   /*
-      for(int i = 0; i < asteroids.size(); i ++)
-    {
-      Asteroid a = asteroids.get(i);
-      a.Render();
-      a.Update(); 
-    }
-  */  
+
    if(((mouseX >= 0)
    &&(mouseX <= width)
    &&(mouseY >= 0)
    &&(mouseY <= height))
    &&(mousePressed && mouseButton == LEFT))
    {
-     OnMainMenu = false;
      Lvl = true;
      AsteroidCreationTimeCoolDown = 0;
    }
   }
-  
   if(Lvl == true)
    {
-    text("Score = " + Score,100,100);
+     OnMainMenu = false;
+     ShowScore();
     for(int i = 0; i < battleShips.size(); i++)
     {
       BattleShip ship = battleShips.get(i);
@@ -140,35 +132,11 @@ void draw()
       a.Render();
       a.Update(); 
     }
-    /*
-    if(increase_LivesDropAmount > 0)
-    {
-        for(int i = 0; i <= increase_LivesDrops.size(); i++)
-        {
-          Increase_Lives_PowerUp LifesPlus = increase_LivesDrops.get(i);
-          LifesPlus.Update();
-          LifesPlus.Render();
-        }
-    }
-   */
     for(int i = bullets.size() -1 ; i >= 0  ; i --)
     {
       Bullet b = bullets.get(i);
       b.Update();
       b.Render(); 
-      
-       if(b.ChechForCollisionWithAsteroid(asteroids) == true)
-       {
-       Score +=1;
-       }
-    }
-    
-    if(Score >= 5 && createdLifeDrop == false)
-    {
-     // increase_LivesDrops.add(new Increase_Lives_PowerUp(random(width,height),random(width,height)));
-  //    createdLifeDrop = true;
-  //    increase_LivesDropAmount +=1;
-     
     }
     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {
@@ -176,5 +144,10 @@ void draw()
        AsteroidCreationTimeCoolDown = 0;
     }
     AsteroidCreationTimeCoolDown ++;
-  }  
+  } 
 }
+   void ShowScore()
+  {
+    fill(Orange);
+    text("Score = " + Score,100,100);
+  } 
