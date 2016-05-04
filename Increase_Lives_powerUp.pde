@@ -13,6 +13,7 @@ class Increase_Lives_PowerUp extends GameObject
   }
   void Render()
   {
+    fill(1);
         triangle(0, -halfW, halfW, halfW, - halfW, halfW);
   }
 }

@@ -11,16 +11,11 @@ import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
-//BattleShip battleShip;
-//Asteroid asteroid;
-//Bullet bullet1;
-
 boolean[] keys = new boolean[512];
 ArrayList<BattleShip> battleShips;
 ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
 ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
-int increase_LivesDropAmount;
 int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
@@ -28,7 +23,7 @@ boolean Lvl;
 int Score;
 int CreateAsteroidTime;
 int AsteroidCreationTimeCoolDown;
-boolean createdLifeDrop;
+//boolean createdLifeDrop;
 color Orange = color(198,152,58); 
 Minim minim; 
 AudioPlayer LaserBeam;
@@ -50,7 +45,7 @@ void setup()
   battleShips = new ArrayList<BattleShip>();
   asteroids = new ArrayList<Asteroid>();
   CreateAsteroidTime = 60 * 5;
-  createdLifeDrop = false;
+//  createdLifeDrop = false;
 //  createdLifeDrop = false;
 
   for(int i = 0; i < BattleShipAmount; i++)
@@ -62,6 +57,7 @@ void setup()
       asteroids.add(new Asteroid(random(width,height),random(width,height),0));
   }
   bullets = new ArrayList<Bullet>();
+  increase_LivesDrops = new ArrayList<Increase_Lives_PowerUp>();
   OnMainMenu = true;
 }
 
@@ -83,28 +79,8 @@ void draw()
   if(OnMainMenu == true)
    {  
    // Lvl = false;
-    float AsteroidsHeadingSize = 75.0f;
-    float TitleSize = 50.0f;
-    float gap = 30.0f;
-    textSize(TitleSize);
-    textAlign(CENTER);
-    text("Asteroids",width/2,height/2 -  TitleSize *4);
-    text("MainMenu",width/2,height/2 -  TitleSize *2);
-    float ExplanationTextSize = 20;
-    textSize(ExplanationTextSize);
-    text("large Asteroid Collision kills outright",width/2 ,height/2 - gap);
-    text("Medium Asteroid Collision is worth 2 hits",width/2 ,height/2);
-    text("Small Asteroid Collision is worth 1 hit",width/2 ,height/2 + gap);
-    text("you can be hit 3 times each life",width/2 ,height/2 + gap * 2);
-    text("you have 3 lives",width/2 ,height/2 + gap * 3);
-    textSize(TitleSize);
-    text("Power-Ups",width/2,height/2 + gap * 5);
-    textSize(ExplanationTextSize);
-    text("Increase rate of fire",width/2,height/2 + gap * 6);
-    text("Add +1 lives",width/2,height/2 + gap * 7);
-    text("Bullet-Wrap",width/2,height/2 + gap * 8);
-    text("Arrow keys to Move, space Key to fire",width/2,height/2 + gap * 9);
-    text("Click anywhere to begin",width/2,height/2 + gap * 10);
+    MainMenuText();
+   
 
    if(((mouseX >= 0)
    &&(mouseX <= width)
@@ -138,6 +114,12 @@ void draw()
       b.Update();
       b.Render(); 
     }
+    for(int i = increase_LivesDrops.size() -1; i >=0; i--)
+    {
+      Increase_Lives_PowerUp livesplus1 = increase_LivesDrops.get(i);
+      livesplus1.Update();
+      livesplus1.Render();
+    }
     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {
        asteroids.add(new Asteroid(random(width,height),random(width,height),0));
@@ -146,6 +128,32 @@ void draw()
     AsteroidCreationTimeCoolDown ++;
   } 
 }
+   void MainMenuText()
+   {
+    fill(255);
+    float AsteroidsHeadingSize = 75.0f;
+    float TitleSize = 50.0f;
+    float gap = 30.0f;
+    textSize(TitleSize);
+    textAlign(CENTER);
+    text("Asteroids",width/2,height/2 -  TitleSize *4);
+    text("MainMenu",width/2,height/2 -  TitleSize *2);
+    float ExplanationTextSize = 20;
+    textSize(ExplanationTextSize);
+    text("large Asteroid Collision kills outright",width/2 ,height/2 - gap);
+    text("Medium Asteroid Collision is worth 2 hits",width/2 ,height/2);
+    text("Small Asteroid Collision is worth 1 hit",width/2 ,height/2 + gap);
+    text("you can be hit 3 times each life",width/2 ,height/2 + gap * 2);
+    text("you have 3 lives",width/2 ,height/2 + gap * 3);
+    textSize(TitleSize);
+    text("Power-Ups",width/2,height/2 + gap * 5);
+    textSize(ExplanationTextSize);
+    text("Increase rate of fire",width/2,height/2 + gap * 6);
+    text("Add +1 lives",width/2,height/2 + gap * 7);
+    text("Bullet-Wrap",width/2,height/2 + gap * 8);
+    text("Arrow keys to Move, space Key to fire",width/2,height/2 + gap * 9);
+    text("Click anywhere to begin",width/2,height/2 + gap * 10);
+   }
    void ShowScore()
   {
     fill(Orange);

@@ -120,7 +120,9 @@ class Asteroid extends GameObject
       
       if(Score >= 1000)
       {
-           
+        PVector liveplus1Pos = pos.get(); //get ships position
+        Increase_Lives_PowerUp livesplus1 = new Increase_Lives_PowerUp(liveplus1Pos.x,liveplus1Pos.y); // create an instance of the bullet 
+        increase_LivesDrops.add(livesplus1); // add the created bullet to the bullets array
       }
   }
 }
