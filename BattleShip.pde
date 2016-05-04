@@ -9,10 +9,11 @@ class BattleShip extends GameObject
    OriginalPosX = pos.x;
    OriginalPosY = pos.y;
    speed = 5.0f;
+   radius = Width;
    Sps = new Ship_ParticleSystem(new PVector(pos.x,pos.y));
   }
   
- int lives = 3;
+ int lives;
  int hit = 0;
  int destroyedAsteroid = 0;
  color Orange = color(198,152,58); 
@@ -21,7 +22,11 @@ class BattleShip extends GameObject
  int FireRate = 60/5;
  int coolDown = FireRate;
  boolean Explode;
- 
+ float radius;
+ void setup()
+ {
+   lives = 3;
+ }
   void Update()
   {
    forward.x = sin(theta);
@@ -128,13 +133,14 @@ class BattleShip extends GameObject
   {
     for(Increase_Lives_PowerUp livesplus1 : increase_LivesDrops)
     {
-     PVector dist =  PVector.sub(pos, livesplus1.pos);
+   //  PVector dist =  PVector.sub(new PVector(pos.x + radius, pos.y + radius), new PVector(livesplus1.pos.x + livesplus1.radius,livesplus1.pos.y + livesplus1.radius));
+       PVector dist = PVector.sub(pos, livesplus1.pos);
+       
      if(dist.mag() < livesplus1.radius)
      {
-       lives += 1;
-       return true;
+         livesplus1.PickedUp();
      }
- 
+     return true;  
     }
     return false;
   }

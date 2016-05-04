@@ -113,7 +113,7 @@ void draw()
       b.Update();
       b.Render(); 
     }
-    for(int i = increase_LivesDrops.size() -1; i >=0; i--)
+    for(int i = increase_LivesDrops.size()-1; i >=0; i--)
     {
       Increase_Lives_PowerUp livesplus1 = increase_LivesDrops.get(i);
       livesplus1.Update();

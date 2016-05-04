@@ -1,6 +1,6 @@
 class Increase_Lives_PowerUp extends GameObject
 {
-  float Timer;
+//float Timer;
   float radius;
    color Green = color(72,211,60); 
 
@@ -12,12 +12,18 @@ class Increase_Lives_PowerUp extends GameObject
   }
   void Update()
   {
-    Timer++;
+  //  Timer++;
   }
   
   void Render()
   {
         fill(Green);
-        triangle(pos.x - halfW/2,pos.y  - halfW, pos.x + halfW,pos.y + halfW,pos.x  - halfW,pos.y + halfW);
+       // triangle(pos.x - halfW/2,pos.y  - halfW, pos.x + halfW,pos.y + halfW,pos.x  - halfW,pos.y + halfW);
+       ellipse(pos.x,pos.y,radius,radius);
+  }
+  void PickedUp()
+  {
+   //  lives += 1;
+      increase_LivesDrops.remove(this);
   }
 }
