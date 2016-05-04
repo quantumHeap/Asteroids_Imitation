@@ -34,6 +34,7 @@ class Asteroid extends GameObject
      velocity = new PVector(cos(angle) * speed, sin(angle) * speed);
      
   } 
+  
   void Update()
   {
      pos.add(velocity);
@@ -57,6 +58,7 @@ class Asteroid extends GameObject
       pos.y = 0;
     }
   }
+  
   void Render()
   {
     stroke(255);
@@ -68,19 +70,15 @@ class Asteroid extends GameObject
   //  rect(-halfW, -Width, 50 * ((float)Health / (float)MaxHealth), 10);
     rotate(theta); //  rotate should happen first, so you make the call AFTER translate    
     popMatrix();
-  }  
+  } 
+  
   void breakUp(ArrayList<Asteroid> asteroids)
   {
      hit = true;
-   
-  
      if(step == 0 )
-     {
-
-         
+     {  
        for(int i = 0; i < 3; i++)
        {
- 
         float angle = random(2 * PI);
         PVector randRot = new PVector(radius * sin(angle), radius * cos(angle));
         asteroids.add(new Asteroid(pos.x ,pos.y,1));
@@ -118,11 +116,10 @@ class Asteroid extends GameObject
          Explosion_Small.play();
       }
       
-      if(Score >= 1000)
+      if(Score >= 1000 && createdLifeDrop == false)
       {
-        PVector liveplus1Pos = pos.get(); //get ships position
-        Increase_Lives_PowerUp livesplus1 = new Increase_Lives_PowerUp(liveplus1Pos.x,liveplus1Pos.y); // create an instance of the bullet 
-        increase_LivesDrops.add(livesplus1); // add the created bullet to the bullets array
+        increase_LivesDrops.add(new Increase_Lives_PowerUp(pos.x,pos.y)); 
+        createdLifeDrop = true;
       }
   }
 }

@@ -23,7 +23,7 @@ boolean Lvl;
 int Score;
 int CreateAsteroidTime;
 int AsteroidCreationTimeCoolDown;
-//boolean createdLifeDrop;
+boolean createdLifeDrop;
 color Orange = color(198,152,58); 
 Minim minim; 
 AudioPlayer LaserBeam;
@@ -45,8 +45,7 @@ void setup()
   battleShips = new ArrayList<BattleShip>();
   asteroids = new ArrayList<Asteroid>();
   CreateAsteroidTime = 60 * 5;
-//  createdLifeDrop = false;
-//  createdLifeDrop = false;
+  createdLifeDrop = false;
 
   for(int i = 0; i < BattleShipAmount; i++)
   {
@@ -125,6 +124,8 @@ void draw()
        asteroids.add(new Asteroid(random(width,height),random(width,height),0));
        AsteroidCreationTimeCoolDown = 0;
     }
+    
+
     AsteroidCreationTimeCoolDown ++;
   } 
 }

@@ -31,7 +31,7 @@ class BattleShip extends GameObject
    velocity.y = forward.y;
    velocity.mult(speed);
    InputMovement();
-   ChechForCollisionWithAsteroid(asteroids);
+   CheckForCollisionWithAsteroid(asteroids);
    HasBeenHit();
    LifeSystem();
    coolDown ++;
@@ -78,7 +78,7 @@ class BattleShip extends GameObject
       if(keys[' '] && coolDown >= FireRate)
     {
       PVector bulletPos = pos.get(); //get ships position
-      bulletPos.add(PVector.mult(forward,30)); // where the bullet will be fired from
+      bulletPos.add(PVector.mult(forward,30)); // where the bullet will be fired from after taking the forward vector of the battleship
       Bullet b = new Bullet(bulletPos.x, bulletPos.y, theta); // create an instance of the bullet 
       bullets.add(b); // add the created bullet to the bullets array
       coolDown = 0;
@@ -123,35 +123,23 @@ class BattleShip extends GameObject
     fill(Orange);
     text("Life's = " + lives,width - width/1.1f,height - height/12);
   }
-  /*
-  // I could just call to see if the bool check of the collision with the asteroid in bullet == true but how?  
-    //////////////// Score system and Power-up drops are dependent on this check, Need to  fix it ///////////////////////////// 
-    boolean ChechForCollisionBetweenAsteroidAndBullet(ArrayList<Asteroid> asteroids,ArrayList<Bullet> bullets)
+  
+  boolean CheckForCollisionWithLifePowerUp(ArrayList<Increase_Lives_PowerUp> increase_LivesDrops)
+  {
+    for(Increase_Lives_PowerUp livesplus1 : increase_LivesDrops)
     {
-      for(Asteroid a : asteroids)
-      for(Bullet b : bullets)
-      {
-       //for(int i = 0; i < a.size(); i++)
-    //     {
-    //      for(int j = 0; j < b.length(); j++)
-    //       {
-       PVector dist = PVector.sub(b.pos,a.pos); 
-       
-       if(dist.mag() <  a.radius)
-       {
-         destroyedAsteroid += 1; //Counter for the power-Ups
-         
-         if(destroyedAsteroid == 5);
-         {
-           gameObjects.add(new Increase_Lives_PowerUp(random(width,height),random(width,height)));
-         }
-       }
+     PVector dist =  PVector.sub(pos, livesplus1.pos);
+     if(dist.mag() < livesplus1.radius)
+     {
+       lives += 1;
        return true;
-      }
-      return false;
+     }
+ 
     }
-    */
-    boolean ChechForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)
+    return false;
+  }
+  
+    boolean CheckForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)
   {
     for( Asteroid a : asteroids)
     {
@@ -185,39 +173,5 @@ class BattleShip extends GameObject
    }
      return false;
   }
-  /*
-   boolean ChechForCollisionWithLifeBuff(Increase_Lives_PowerUp)
-  {
-  
-      PVector dist = PVector.sub(pos, Increase_Lives_PowerUp.pos);
-      
-      if(dist.mag() < a.radius)
-      {
-        a.breakUp(asteroids);
-      if(a.step == 0)
-      {
-       hit +=3; 
-      }
-      if(a.step == 1)
-      {
-       hit +=2; 
-      }
-      if(a.step == 2)
-      {
-       hit +=1; 
-      }
-      if(hit >= 3)
-      {
-          Explode = true;
-          lives-=1;
-          pos.x = OriginalPosX;
-          pos.y = OriginalPosY;
-          hit = 0; 
-      }
-        return true; 
-     }
-   }
-     return false;
-  }
-  */
+
 }
