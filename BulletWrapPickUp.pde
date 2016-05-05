@@ -17,13 +17,17 @@ class BulletWrapPickUp extends GameObject
   
   void Render()
   {
-        fill(Purple);
-       // triangle(pos.x - halfW/2,pos.y  - halfW, pos.x + halfW,pos.y + halfW,pos.x  - halfW,pos.y + halfW);
-       ellipse(pos.x,pos.y,radius,radius);
+    fill(Purple);
+    ellipse(pos.x,pos.y,radius,radius);
+    fill(255);
+    float TextSize = 20.0f;
+    textSize(TextSize);
+    textAlign(CENTER);
+    text("BULLETWRAP!",pos.x,pos.y);
   }
   void PickedUp(ArrayList<BulletWrapPickUp> BulletWrapDrops)
   {
   //    lives += 1;
-  //    increase_LivesDrops.remove(this);
+  //    BulletWrapDrops.remove(this);
   }
 }

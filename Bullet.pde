@@ -21,12 +21,12 @@ class Bullet extends GameObject
    velocity.mult(speed);
    pos.add(velocity); 
    ChechForCollisionWithAsteroid( asteroids);
-   BulletAccelleration();
+   BulletDeccelleration();
 }
 
- void BulletAccelleration()
+ void BulletDeccelleration()
   {
-    
+
      if(speed > 0)
      {
       speed -= dampSpeed; 

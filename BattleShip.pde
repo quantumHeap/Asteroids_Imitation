@@ -20,6 +20,7 @@ class BattleShip extends GameObject
  float OriginalPosX;
  float OriginalPosY; 
  int FireRate = 60/5;
+
  int coolDown = FireRate;
  boolean Explode;
  boolean hitLifePlus1;
@@ -46,7 +47,7 @@ class BattleShip extends GameObject
    HasBeenHit();
    LifeSystem();
    coolDown ++;
-    
+   
   if(lives == 0)
   {
     Lvl = false;
@@ -219,11 +220,13 @@ class BattleShip extends GameObject
           lives-=1;
           pos.x = OriginalPosX;
           pos.y = OriginalPosY;
+          FireRate = 60/5;
           hit = 0; 
       }
         return true; 
      }
    }
+   
      return false;
   }
 

@@ -17,9 +17,13 @@ class Increase_Lives_PowerUp extends GameObject
   
   void Render()
   {
-        fill(Green);
-       // triangle(pos.x - halfW/2,pos.y  - halfW, pos.x + halfW,pos.y + halfW,pos.x  - halfW,pos.y + halfW);
-       ellipse(pos.x,pos.y,radius,radius);
+    fill(Green);
+    ellipse(pos.x,pos.y,radius,radius);
+    fill(255);
+    float TextSize = 20.0f;
+    textSize(TextSize);
+    textAlign(CENTER);
+    text("Life+1",pos.x,pos.y);
   }
   void PickedUp(ArrayList<Increase_Lives_PowerUp> increase_LivesDrops)
   {
