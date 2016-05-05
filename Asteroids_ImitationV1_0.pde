@@ -18,6 +18,7 @@ ArrayList<Asteroid> asteroids;
 ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
 ArrayList<FireRatePlusPickUp> increase_FireRateDrops;
 ArrayList<BulletWrapPickUp> BulletWrapDrops;
+ArrayList<Asteroid_ParticleSystem> asteroid_particleSystems;
 int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
@@ -28,16 +29,15 @@ int AsteroidCreationTimeCoolDown;
 boolean createdLifeDrop;
 boolean createdFireRateDrop;
 boolean createdBulletWrapDrop;
- boolean PickedUpBulletWrapBuff;
+boolean PickedUpBulletWrapBuff;
 color Orange = color(198,152,58); 
+float[] starX = new float[75]; float[] starY = new float[75]; float[] starW = new float[75]; 
+float[] starH = new float[75]; float[] lineLength = new float[75];
 Minim minim; 
 AudioPlayer LaserBeam;
 AudioPlayer Explosion_Large;
 AudioPlayer Explosion_Medium;
 AudioPlayer Explosion_Small;
-
-float[] starX = new float[75]; float[] starY = new float[75]; float[] starW = new float[75]; 
-float[] starH = new float[75]; float[] lineLength = new float[75];
 
 void setup()
 {
@@ -52,6 +52,11 @@ void setup()
    AsteroidAmount = 10;
   battleShips = new ArrayList<BattleShip>();
   asteroids = new ArrayList<Asteroid>();
+  bullets = new ArrayList<Bullet>();
+  increase_LivesDrops = new ArrayList<Increase_Lives_PowerUp>();
+  increase_FireRateDrops = new ArrayList<FireRatePlusPickUp>();
+  BulletWrapDrops = new ArrayList<BulletWrapPickUp>();
+  asteroid_particleSystems = new ArrayList<Asteroid_ParticleSystem>();
   CreateAsteroidTime = 60 * 5;
   createdLifeDrop = false;
   createdFireRateDrop = false;
@@ -73,10 +78,7 @@ void setup()
   {
       asteroids.add(new Asteroid(random(width,height),random(width,height),0));
   }
-  bullets = new ArrayList<Bullet>();
-  increase_LivesDrops = new ArrayList<Increase_Lives_PowerUp>();
-  increase_FireRateDrops = new ArrayList<FireRatePlusPickUp>();
-  BulletWrapDrops = new ArrayList<BulletWrapPickUp>();
+
   OnMainMenu = true;
 }
 
@@ -155,6 +157,11 @@ void draw()
       BulletWrapPlus.Update();
       BulletWrapPlus.Render();
     }
+    for(int i = asteroid_particleSystems.size()-1; i >= 0; i--)
+    {
+      Asteroid_ParticleSystem AParticles = asteroid_particleSystems.get(i);
+      AParticles.run();
+    }
     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {
        asteroids.add(new Asteroid(random(width,height),random(width,height),0));
@@ -194,6 +201,8 @@ void draw()
    void ShowScore()
   {
     fill(Orange);
+    float ScoreSize = 20;
+    textSize(ScoreSize);
     text("Score = " + Score,100,100);
   } 
    void CreateStar(int si)

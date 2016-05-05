@@ -12,7 +12,7 @@ class Asteroid extends GameObject
      speed = 1.0f;
      Width = width/13;
      radius = Width;
-     Aps = new Asteroid_ParticleSystem(new PVector(pos.x,pos.y));
+   //  Aps = new Asteroid_ParticleSystem(new PVector(pos.x,pos.y));
      
     if(step == 0)
     {
@@ -38,7 +38,7 @@ class Asteroid extends GameObject
   void Update()
   {
      pos.add(velocity);
-     Aps.run();
+  //   Aps.Update();
     if (pos.x < 0)
     {
       pos.x = width;
@@ -100,6 +100,7 @@ class Asteroid extends GameObject
          }
      //    float lifeSpan = 20.0f;
      //    Aps.addParticle(pos,lifeSpan);
+         asteroid_particleSystems.add(new Asteroid_ParticleSystem(pos));
          asteroids.remove(this);
          Score+= 200;
 
@@ -108,8 +109,9 @@ class Asteroid extends GameObject
       }
        if(step == 2)
       {
-     //    float lifeSpan = 20.0f;
-   //      Aps.addParticle(pos,lifeSpan);
+        float lifeSpan = 10;
+   //    Aps.addParticle(pos,lifeSpan);
+ //        asteroid_particleSystems.add(new Asteroid_ParticleSystem(pos));
          asteroids.remove(this);
          Score+= 400;
          Explosion_Small.rewind();
