@@ -24,7 +24,7 @@ class BattleShip extends GameObject
  int coolDown = FireRate;
  boolean Explode;
  boolean hitLifePlus1;
- boolean PickedUpBulletWrapBuff;
+
  float radius;
  void setup()
  {
@@ -217,11 +217,9 @@ class BattleShip extends GameObject
       if(hit >= 3)
       {
           Explode = true;
-          lives-=1;
-          pos.x = OriginalPosX;
-          pos.y = OriginalPosY;
-          FireRate = 60/5;
+          lives-=1;  
           hit = 0; 
+          Respawn();
       }
         return true; 
      }
@@ -229,5 +227,11 @@ class BattleShip extends GameObject
    
      return false;
   }
-
+  void Respawn()
+  {
+      pos.x = OriginalPosX;
+      pos.y = OriginalPosY;
+      FireRate = 60/5;
+      PickedUpBulletWrapBuff = false;
+  }
 }

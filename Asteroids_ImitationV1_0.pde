@@ -28,6 +28,7 @@ int AsteroidCreationTimeCoolDown;
 boolean createdLifeDrop;
 boolean createdFireRateDrop;
 boolean createdBulletWrapDrop;
+ boolean PickedUpBulletWrapBuff;
 color Orange = color(198,152,58); 
 Minim minim; 
 AudioPlayer LaserBeam;

@@ -36,14 +36,14 @@ class Bullet extends GameObject
      {
            bullets.remove(this);
      }
-     if(createdBulletWrapDrop == false)
+     if(PickedUpBulletWrapBuff == false)
      {
         if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
           {
             bullets.remove(this);
           } 
      }
-      if(createdBulletWrapDrop == true)
+      if(PickedUpBulletWrapBuff == true)
       {
            if (pos.x < 0)
         {
