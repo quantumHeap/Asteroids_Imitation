@@ -23,10 +23,12 @@ class BattleShip extends GameObject
  int coolDown = FireRate;
  boolean Explode;
  boolean hitLifePlus1;
+ boolean PickedUpBulletWrapBuff;
  float radius;
  void setup()
  {
    lives = 3;
+   PickedUpBulletWrapBuff = false;
  }
   void Update()
   {
@@ -40,6 +42,7 @@ class BattleShip extends GameObject
    CheckForCollisionWithAsteroid(asteroids);
    CheckForCollisionWithLifePowerUp(increase_LivesDrops);
    CheckForCollisionWithFireRatePowerUp(increase_FireRateDrops);
+   CheckForCollisionWithBulletWrapPickUp(BulletWrapDrops);
    HasBeenHit();
    LifeSystem();
    coolDown ++;
@@ -165,6 +168,25 @@ class BattleShip extends GameObject
           increase_FireRateDrops.remove(FireRatePlus);
            createdFireRateDrop = false;
       //   FireRatePlus.PickedUp(increase_FireRateDrops);
+           return true;   
+     }
+    }
+    return false;
+  }
+    boolean CheckForCollisionWithBulletWrapPickUp(ArrayList<BulletWrapPickUp> BulletWrapDrops)
+  {
+    for(BulletWrapPickUp BulletWrapPlus : BulletWrapDrops)
+    {
+      //should be width and height of the object.
+   //  PVector dist =  PVector.sub(new PVector(pos.x + radius, pos.y + radius), new PVector(livesplus1.pos.x + livesplus1.radius,livesplus1.pos.y + livesplus1.radius));
+       PVector dist = PVector.sub(pos, BulletWrapPlus.pos);
+       
+     if(dist.mag() < BulletWrapPlus.radius)
+     {
+          PickedUpBulletWrapBuff = true;
+          BulletWrapDrops.remove(BulletWrapPlus);
+          createdBulletWrapDrop = false;
+      //   BulletWrapPlus.PickedUp(BulletWrapDrops);
            return true;   
      }
     }

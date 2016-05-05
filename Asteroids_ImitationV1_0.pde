@@ -17,6 +17,7 @@ ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
 ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
 ArrayList<FireRatePlusPickUp> increase_FireRateDrops;
+ArrayList<BulletWrapPickUp> BulletWrapDrops;
 int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
@@ -26,6 +27,7 @@ int CreateAsteroidTime;
 int AsteroidCreationTimeCoolDown;
 boolean createdLifeDrop;
 boolean createdFireRateDrop;
+boolean createdBulletWrapDrop;
 color Orange = color(198,152,58); 
 Minim minim; 
 AudioPlayer LaserBeam;
@@ -49,6 +51,7 @@ void setup()
   CreateAsteroidTime = 60 * 5;
   createdLifeDrop = false;
   createdFireRateDrop = false;
+  createdBulletWrapDrop = false;
   for(int i = 0; i < BattleShipAmount; i++)
   {
     battleShips.add(new BattleShip(width/2,height/2));
@@ -60,6 +63,7 @@ void setup()
   bullets = new ArrayList<Bullet>();
   increase_LivesDrops = new ArrayList<Increase_Lives_PowerUp>();
   increase_FireRateDrops = new ArrayList<FireRatePlusPickUp>();
+  BulletWrapDrops = new ArrayList<BulletWrapPickUp>();
   OnMainMenu = true;
 }
 
@@ -126,6 +130,12 @@ void draw()
       FireRatePlusPickUp FireRatePlus = increase_FireRateDrops.get(i);
       FireRatePlus.Update();
       FireRatePlus.Render();
+    }
+    for(int i = BulletWrapDrops.size()-1; i >=0; i--)
+    {
+      BulletWrapPickUp BulletWrapPlus = BulletWrapDrops.get(i);
+      BulletWrapPlus.Update();
+      BulletWrapPlus.Render();
     }
     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {

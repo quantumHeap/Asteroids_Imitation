@@ -26,41 +26,44 @@ class Bullet extends GameObject
 
  void BulletAccelleration()
   {
+    
      if(speed > 0)
      {
       speed -= dampSpeed; 
      }
-     if(speed <= 0)
+     
+     if(speed <= 0.1f)
      {
            bullets.remove(this);
      }
-     
-    if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
+     if(createdBulletWrapDrop == false)
+     {
+        if ((pos.x < 0) || (pos.x > width) || (pos.y < 0) || (pos.y > height))
+          {
+            bullets.remove(this);
+          } 
+     }
+      if(createdBulletWrapDrop == true)
       {
-        bullets.remove(this);
-      } 
-      
-    //Will be a power-Up
-    /*
-    if (pos.x < 0)
-    {
-      pos.x = width;
-    }
-      if (pos.x > width)
-    {
-      pos.x = 0;
-    }
-    
-    if (pos.y < 0)
-    {
-      pos.y = height;
-    }
-    
-    if (pos.y > height)
-    {
-      pos.y = 0;
-    }
-    */
+           if (pos.x < 0)
+        {
+          pos.x = width;
+        }
+          if (pos.x > width)
+        {
+          pos.x = 0;
+        }
+        
+        if (pos.y < 0)
+        {
+          pos.y = height;
+        }
+        
+        if (pos.y > height)
+        {
+          pos.y = 0;
+        }
+      }
   }
   void Render()
   {
