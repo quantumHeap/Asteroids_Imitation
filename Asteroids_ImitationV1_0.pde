@@ -16,6 +16,7 @@ ArrayList<BattleShip> battleShips;
 ArrayList<Bullet> bullets;
 ArrayList<Asteroid> asteroids;
 ArrayList<Increase_Lives_PowerUp> increase_LivesDrops;
+ArrayList<FireRatePlusPickUp> increase_FireRateDrops;
 int BattleShipAmount;
 int AsteroidAmount;  ////////////// need asteroid amount to be able to vary when wanted.//////////////
 boolean OnMainMenu;
@@ -24,6 +25,7 @@ int Score;
 int CreateAsteroidTime;
 int AsteroidCreationTimeCoolDown;
 boolean createdLifeDrop;
+boolean createdFireRateDrop;
 color Orange = color(198,152,58); 
 Minim minim; 
 AudioPlayer LaserBeam;
@@ -46,7 +48,7 @@ void setup()
   asteroids = new ArrayList<Asteroid>();
   CreateAsteroidTime = 60 * 5;
   createdLifeDrop = false;
-
+  createdFireRateDrop = false;
   for(int i = 0; i < BattleShipAmount; i++)
   {
     battleShips.add(new BattleShip(width/2,height/2));
@@ -57,6 +59,7 @@ void setup()
   }
   bullets = new ArrayList<Bullet>();
   increase_LivesDrops = new ArrayList<Increase_Lives_PowerUp>();
+  increase_FireRateDrops = new ArrayList<FireRatePlusPickUp>();
   OnMainMenu = true;
 }
 
@@ -116,6 +119,13 @@ void draw()
       Increase_Lives_PowerUp livesplus1 = increase_LivesDrops.get(i);
       livesplus1.Update();
       livesplus1.Render();
+    }
+    
+    for(int i = increase_FireRateDrops.size()-1; i >=0; i--)
+    {
+      FireRatePlusPickUp FireRatePlus = increase_FireRateDrops.get(i);
+      FireRatePlus.Update();
+      FireRatePlus.Render();
     }
     if(AsteroidCreationTimeCoolDown >= CreateAsteroidTime)
     {

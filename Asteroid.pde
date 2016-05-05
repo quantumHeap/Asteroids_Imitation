@@ -121,5 +121,10 @@ class Asteroid extends GameObject
         increase_LivesDrops.add(new Increase_Lives_PowerUp(pos.x,pos.y)); 
         createdLifeDrop = true;
       }
+         if(Score >= 5000 && createdFireRateDrop == false)
+      {
+        increase_FireRateDrops.add(new FireRatePlusPickUp(pos.x,pos.y)); 
+        createdFireRateDrop= true;
+      }
   }
 }

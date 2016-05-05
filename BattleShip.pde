@@ -39,6 +39,7 @@ class BattleShip extends GameObject
    InputMovement();
    CheckForCollisionWithAsteroid(asteroids);
    CheckForCollisionWithLifePowerUp(increase_LivesDrops);
+   CheckForCollisionWithFireRatePowerUp(increase_FireRateDrops);
    HasBeenHit();
    LifeSystem();
    coolDown ++;
@@ -150,7 +151,25 @@ class BattleShip extends GameObject
     }
     return false;
   }
-  
+    boolean CheckForCollisionWithFireRatePowerUp(ArrayList<FireRatePlusPickUp> increase_FireRateDrops)
+  {
+    for(FireRatePlusPickUp FireRatePlus : increase_FireRateDrops)
+    {
+
+   //  PVector dist =  PVector.sub(new PVector(pos.x + radius, pos.y + radius), new PVector(livesplus1.pos.x + livesplus1.radius,livesplus1.pos.y + livesplus1.radius));
+       PVector dist = PVector.sub(pos, FireRatePlus.pos);
+       
+     if(dist.mag() < FireRatePlus.radius)
+     {
+          FireRate = 60/10;
+          increase_FireRateDrops.remove(FireRatePlus);
+           createdFireRateDrop = false;
+      //   FireRatePlus.PickedUp(increase_FireRateDrops);
+           return true;   
+     }
+    }
+    return false;
+  }
     boolean CheckForCollisionWithAsteroid(ArrayList<Asteroid> asteroids)
   {
     for( Asteroid a : asteroids)
