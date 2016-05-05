@@ -16,7 +16,6 @@ class BattleShip extends GameObject
  int lives;
  int hit = 0;
  int destroyedAsteroid = 0;
- color Orange = color(198,152,58); 
  float OriginalPosX;
  float OriginalPosY; 
  int FireRate = 60/5;
@@ -103,17 +102,28 @@ class BattleShip extends GameObject
       if(hit == 1)
      {
        float lifespan = 50;
+       color Orange = color(198,152,58);  
+       color Yellow = color(255,248,18);
+       fill(Yellow,lifespan);
+       stroke(Orange,lifespan);
         Sps.addParticle(pos,lifespan);
         Sps.run();   
      }
      if(hit == 2)
      {
        float lifespan = 100;
+       color Orange = color(198,152,58);  
+       color DarkRed = color(201,95,53);
+       fill(DarkRed,lifespan);
+       stroke(Orange,lifespan);
         Sps.addParticle(pos,lifespan);
         Sps.run();   
      }
+     // hit 3 needs to explode suddenly as the ship is destroyed need to change the particle effect and probably how it spawns as well
        if(hit == 3)
      {
+    //   fill();
+     //  stroke();
        float lifespan = 200;
         Sps.addParticle(pos,lifespan);
         Sps.run();  

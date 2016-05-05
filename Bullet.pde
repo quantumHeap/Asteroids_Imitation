@@ -11,7 +11,8 @@ class Bullet extends GameObject
   }
 
   float dampSpeed = 0.2f;
-  
+  color Green = color(93,250,63); 
+
   void Update()
   {
    forward.x = sin(theta);
@@ -67,8 +68,8 @@ class Bullet extends GameObject
   }
   void Render()
   {
-     stroke(255);
-     fill(255);
+     stroke(Green);
+     fill(Green);
      pushMatrix();
      translate(pos.x,pos.y);
      rotate(theta);;

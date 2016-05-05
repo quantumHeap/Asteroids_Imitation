@@ -53,8 +53,8 @@ class Ship_Particle
 
   void display() 
   {
-    stroke(255,lifespan);
-    fill(255,lifespan);
+ //   stroke(255,lifespan);
+  //  fill(255,lifespan);
     ellipse(location.x,location.y,8,8);
   }
   

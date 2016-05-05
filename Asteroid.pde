@@ -62,7 +62,7 @@ class Asteroid extends GameObject
   void Render()
   {
     stroke(255);
-    fill(1);
+    fill(125);
     pushMatrix(); // reset the translation and rotation
     translate(pos.x, pos.y);
   //  rect(-halfW, -Width, 50, 10);

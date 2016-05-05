@@ -36,6 +36,9 @@ AudioPlayer Explosion_Large;
 AudioPlayer Explosion_Medium;
 AudioPlayer Explosion_Small;
 
+float[] starX = new float[75]; float[] starY = new float[75]; float[] starW = new float[75]; 
+float[] starH = new float[75]; float[] lineLength = new float[75];
+
 void setup()
 {
   size(750,750);
@@ -53,6 +56,15 @@ void setup()
   createdLifeDrop = false;
   createdFireRateDrop = false;
   createdBulletWrapDrop = false;
+  
+   for(int i = 0; i < starX.length; i ++)
+   {
+      starH[i] = random(3,6);
+      starW[i] = starH[i];
+      lineLength[i] = starH[i];
+      starX[i] = random(0, width);
+      starY[i] = random(0,height);
+   }
   for(int i = 0; i < BattleShipAmount; i++)
   {
     battleShips.add(new BattleShip(width/2,height/2));
@@ -81,8 +93,13 @@ void keyReleased()
 
 void draw()
 {
-  background(125);
-
+  background(1);
+  
+ for(int i = 0; i < starX.length; i++)
+  {
+    CreateStar(i);
+  }
+ 
   if(OnMainMenu == true)
    {  
     MainMenuText();
@@ -179,3 +196,11 @@ void draw()
     fill(Orange);
     text("Score = " + Score,100,100);
   } 
+   void CreateStar(int si)
+{   
+   fill(255,random(255));
+   stroke(255,random(255));
+   ellipse(starX[si],starY[si], starW[si],starH[si]);
+   line(starX[si] - lineLength[si], starY[si], starX[si] + lineLength[si], starY[si]);
+   line(starX[si], starY[si] - lineLength[si], starX[si], starY[si] + lineLength[si]);
+}
