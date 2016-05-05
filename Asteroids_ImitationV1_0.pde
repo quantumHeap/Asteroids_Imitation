@@ -77,10 +77,8 @@ void draw()
 
   if(OnMainMenu == true)
    {  
-   // Lvl = false;
     MainMenuText();
    
-
    if(((mouseX >= 0)
    &&(mouseX <= width)
    &&(mouseY >= 0)

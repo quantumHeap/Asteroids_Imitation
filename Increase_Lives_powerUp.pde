@@ -21,9 +21,9 @@ class Increase_Lives_PowerUp extends GameObject
        // triangle(pos.x - halfW/2,pos.y  - halfW, pos.x + halfW,pos.y + halfW,pos.x  - halfW,pos.y + halfW);
        ellipse(pos.x,pos.y,radius,radius);
   }
-  void PickedUp()
+  void PickedUp(ArrayList<Increase_Lives_PowerUp> increase_LivesDrops)
   {
-   //  lives += 1;
-      increase_LivesDrops.remove(this);
+  //    lives += 1;
+  //    increase_LivesDrops.remove(this);
   }
 }

@@ -22,6 +22,7 @@ class BattleShip extends GameObject
  int FireRate = 60/5;
  int coolDown = FireRate;
  boolean Explode;
+ boolean hitLifePlus1;
  float radius;
  void setup()
  {
@@ -37,6 +38,7 @@ class BattleShip extends GameObject
    velocity.mult(speed);
    InputMovement();
    CheckForCollisionWithAsteroid(asteroids);
+   CheckForCollisionWithLifePowerUp(increase_LivesDrops);
    HasBeenHit();
    LifeSystem();
    coolDown ++;
@@ -133,14 +135,18 @@ class BattleShip extends GameObject
   {
     for(Increase_Lives_PowerUp livesplus1 : increase_LivesDrops)
     {
+      //should be width and height of the object.
    //  PVector dist =  PVector.sub(new PVector(pos.x + radius, pos.y + radius), new PVector(livesplus1.pos.x + livesplus1.radius,livesplus1.pos.y + livesplus1.radius));
        PVector dist = PVector.sub(pos, livesplus1.pos);
        
      if(dist.mag() < livesplus1.radius)
      {
-         livesplus1.PickedUp();
+          lives += 1;
+          increase_LivesDrops.remove(livesplus1);
+          createdLifeDrop = false;
+      //   livesplus1.PickedUp(increase_LivesDrops);
+           return true;   
      }
-     return true;  
     }
     return false;
   }
